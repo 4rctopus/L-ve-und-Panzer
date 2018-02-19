@@ -2,6 +2,7 @@ ui = {}
 
 
 require "ui/button"
+require "ui/button2"
 require "ui/slider"
 require "ui/checkBox"
 require "ui/textBox"
@@ -34,11 +35,11 @@ function ui.init()
 
     -- set theme ???
     ui.color = {}
-    setColor( ui.color, 112, 128, 144 )
+    setColor( ui.color, 33, 37, 43 )
     ui.hoverColor = {}
-    setColor( ui.hoverColor, 96, 125, 139 )
+    setColor( ui.hoverColor, 37, 41, 49 )
     ui.downColor = {}
-    setColor( ui.downColor,47,79,79 )
+    setColor( ui.downColor, 44, 49, 58 )
     ui.sliderGrabColor = {}
     setColor( ui.sliderGrabColor, 63, 81, 181 )
     ui.sliderGrabColorDown = {}
@@ -54,7 +55,7 @@ function ui.clear()
 end
 function ui.update()
     ui.input = {}
-    ui.cursorBlinkTime = ui.cursorBlinkTime - gdt
+    ui.cursorBlinkTime = ui.cursorBlinkTime - gDt
     if( ui.cursorBlinkTime < 0 ) then ui.cursorBlinkTime = 1 end
 end
 

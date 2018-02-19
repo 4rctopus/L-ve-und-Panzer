@@ -23,7 +23,7 @@ function ui.textBox( name, x, y, w, font, text, noChangeText )
         end
     end
     local element = ui.elements[name]
-	if( noChangeText ~= true ) then
+	if( noChangeText == false ) then
 		element.text = text
 	end
 
@@ -110,7 +110,7 @@ function ui.textBox( name, x, y, w, font, text, noChangeText )
     end
     end
     -- draw background rectangle
-    love.graphics.setColor( 120, 120, 120 )
+    love.graphics.setColor( 44, 49, 58 )
     love.graphics.rectangle("fill", x, y, w, h )
 
     -- draw text
@@ -122,10 +122,10 @@ function ui.textBox( name, x, y, w, font, text, noChangeText )
     -- draw blinking thingy
     if( ui.enableInput ) then
     if( element.focused and ui.cursorBlinkTime > 0.5 ) then
-        love.graphics.setColor( 2, 119, 189 )
+        love.graphics.setColor( 58, 139, 255 )
         local a, b = split( element.text, element.cursorPos )
         local cx = textx + xPush + font:getWidth( a )
-        love.graphics.rectangle("fill", cx, y, 5, h )
+        love.graphics.rectangle("fill", cx, y, 2, h )
     end
     end
     love.graphics.setScissor( )

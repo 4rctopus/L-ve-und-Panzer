@@ -1,7 +1,12 @@
 
+local lume = require "lib/lume"
+
 -- button and TextButton
 local defaultSettings = { name = "noname", x = 0, y = 0, w = 100, h = 100, text = "no text", font = nil, align = "center" }
-function ui.button( name, x, y, w, h, text, font, align )
+function ui.button2( settings )
+    local s = lume.merge( defaultSettings, settings )
+    local name, x, y, w, h, text, font, align = s.name, s.x, s.y, s.w, s.h, s.text, s.font, s.align
+
     local state = {}
     state.hover = false
     state.down = {}
@@ -53,9 +58,9 @@ function ui.button( name, x, y, w, h, text, font, align )
     -- text
     if( text ~= nil ) then
         love.graphics.setColor( 255, 255, 255, 255 )
-        if( font ~= nil ) then love.graphics.setFont( font ) end
-        if( align ) then love.graphics.printf( text, x, y + ( h - font:getHeight( text ) ) / 2, w, align ) else
-        love.graphics.printf( text, x, y + ( h - font:getHeight( text ) ) / 2, w, "center" ) end
+        if( font ~= nil ) then love.graphics.setFont( font ) else
+            font = love.graphics.getFont() end 
+        if( align ) then love.graphics.printf( text, x, y + ( h - font:getHeight( text ) ) / 2, w, align ) end
     end
 
     return state

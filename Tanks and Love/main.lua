@@ -127,7 +127,7 @@ end
 
 gTime = 0
 function love.update(dt)
-    gdt = dt
+    gDt = dt
     gTime = gTime + dt
     --[[
     lovebird.update()
