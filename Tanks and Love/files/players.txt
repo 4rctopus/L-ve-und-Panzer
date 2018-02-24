@@ -1,6 +1,0 @@
-5
-Saori up left right down rshift 210 82 127 
-Miho w a d s q 0 177 106
-Hana i j l k u 142 68 173
-Yukari kp/ kp7 kp9 kp8 kp* 52 73 94
-Mako t f h g r 236 240 241
