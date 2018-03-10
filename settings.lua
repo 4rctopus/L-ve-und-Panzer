@@ -22,7 +22,7 @@ function settingsDraw( addremove )
     local hp = 10 -- push
     local h = bigFont:getHeight() + hp
     for i, player in pairs( players ) do
-        local button = ui.button( i, hp, sy, w, h, player.name, bigFont )
+        local button = ui.button( { name = i, x = hp, y = sy, w = w, h = h, text = player.name, font = bigFont } )
         if( button.released[1] > 0 ) then
             selectedPlayer = i
         end
@@ -41,7 +41,7 @@ function settingsDraw( addremove )
     if( addremove ) then
         if( #players < 5 ) then
             local nPush = w / 3 + hp
-            local newButton = ui.button( "newb", nPush, sy, w - 2 * nPush, h, "+", bigFont )
+            local newButton = ui.button( { name = "newb", x = nPush, y = sy, w=  w - 2 * nPush, h = h, text = "+", font = bigFont } )
             if( newButton.released[1] > 0 ) then
                 print( #players + 1 )
                 players[#players + 1] = {}
@@ -66,7 +66,7 @@ function settingsDraw( addremove )
     local sx = love.graphics.getWidth() / 3 + sectionMinus
     local sxend = love.graphics.getWidth() / 3 * 2 - sectionMinus
     -- player name change:
-    local playerTextBox = ui.textBox( "pname" .. selectedPlayer, sx, sy, w, bigFont, players[selectedPlayer].name )
+    local playerTextBox = ui.textBox( { name = "pname" .. selectedPlayer, x = sx, y = sy, w = w, font = bigFont, text = players[selectedPlayer].name } )
     players[selectedPlayer].name = playerTextBox.text
 
     love.graphics.setColor( 255, 255, 255, 255 )
@@ -75,7 +75,7 @@ function settingsDraw( addremove )
     sy = sy + bigFont:getHeight(  ) + 3
     for key, bind in pairs( players[selectedPlayer].keybind ) do
         love.graphics.printf( key .. ":", sx, sy, w, "left" )
-        local button = ui.button( "w", sxend - bigFont:getWidth("WWWWW"), sy,bigFont:getWidth("WWWWW"), bigFont:getHeight(), bind, bigFont )
+        local button = ui.button( { name = "w", x = sxend - bigFont:getWidth("WWWWW"), y = sy, w = bigFont:getWidth("WWWWW"), h = bigFont:getHeight(), text = bind, font = bigFont } )
         if( button.released[1] > 0 ) then
             settingKeybind = {}
             settingKeybind.keybind = players[selectedPlayer].keybind
@@ -90,7 +90,7 @@ function settingsDraw( addremove )
     love.graphics.printf("color", sx, sy, w, "center" )
     sy = sy + bigFont:getHeight()
     for color, value in pairs( players[selectedPlayer].color ) do
-        local slider = ui.slider( "slider" .. color .. selectedPlayer,sx, sy, w, bigFont:getHeight(), players[selectedPlayer].color[color] / 255 )
+        local slider = ui.slider( { name = "slider" .. color .. selectedPlayer, x = sx, y = sy, w = w, h = bigFont:getHeight(), value = players[selectedPlayer].color[color] / 255 } )
         players[selectedPlayer].color[color] =  slider.value * 255
         love.graphics.setColor(255, 255, 255, 255 )
         love.graphics.printf( color .. ": " .. math.floor( players[selectedPlayer].color[color] ), sx, sy, w, "center" )
@@ -105,7 +105,7 @@ function settingsDraw( addremove )
 
     -- removebutton
     if( addremove and #players > 2 and selectedPlayer > 2 ) then
-        local removeButton = ui.button( "rb", sx, sy, w, bigFont:getHeight(), "remove player", bigFont )
+        local removeButton = ui.button( { name = "rb", x = sx, y = sy, w = w, h = bigFont:getHeight(), text = "remove player", font = bigFont } )
         if( removeButton.released[1] > 0 ) then
             table.remove( players, selectedPlayer  )
             if( selectedPlayer > #players ) then

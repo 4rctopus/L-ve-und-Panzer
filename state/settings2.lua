@@ -15,7 +15,7 @@ function settings2State.draw()
     local h = bigFont:getHeight()
     local sy = p
     local sx = love.graphics.getWidth() - w - p
-    local backButton = ui.button( "bbt", sx, sy, w, h, "back", bigFont )
+    local backButton = ui.button( { name = "bbt", x = sx, y = sy, w = w, h = h, text = "back", font = bigFont } )
     if( backButton.released[1] > 0 ) then
         ui.clear()
         state = pauseState

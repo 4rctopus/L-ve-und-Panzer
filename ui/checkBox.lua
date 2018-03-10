@@ -1,41 +1,50 @@
+local lume = require "lib/lume"
+local event = require "event"
+
+ui.checkBoxSettings = {
+    name = "noname", x = 0, y = 0, w = 100, h = 100, checked = false,
+    hoverColor = { 37, 41, 49 },
+    color = { 33, 37, 43 },
+}
+
 -- checkBox
-function ui.checkBox( name, x, y, w, h, checked )
+function ui.checkBox( settings )
     local state = {}
+    local s = lume.merge( ui.checkBoxSettings, settings )
 
     -- add this checkbox to the elements if it isn't htere yet
-    if( ui.elements[name] == nil ) then
-        ui.elements[name] = {}
-        ui.elements[name].checked = false
+    if( ui.elements[s.name] == nil ) then
+        ui.elements[s.name] = {}
+        ui.elements[s.name].checked = false
     end
-    if( checked ~= nil ) then
-        ui.elements[name].checked = checked
+    if( s.checked ~= nil ) then
+        ui.elements[s.name].checked = s.checked
     end
 
     -- event input
     if( ui.enableInput ) then
-    for i, input in pairs( ui.input ) do
-        if( input.type == "mousereleased" and pointInsideRectangle( input.x, input.y, x, y, w, h ) ) then
-            ui.elements[name].checked = not ui.elements[name].checked
+        for i, input in ipairs( event.mousereleased ) do
+            if( pointInsideRectangle( input.x, input.y, s.x, s.y, s.w, s.h ) ) then
+                ui.elements[name].checked = not ui.elements[name].checked
+            end
         end
     end
-    end
-
 
     -- draw outline rectangle
-    if( mouseOver( x, y, w, h ) ) then
+    if( mouseOver( s.x, s.y, s.w, s.h ) ) then
         if( ui.enableInput ) then
-        love.graphics.setColor( ui.hoverColor.r, ui.hoverColor.g, ui.hoverColor.b, ui.hoverColor.a )
+        love.graphics.setColor( s.hoverColor  )
         end
     else
-        love.graphics.setColor( ui.color.r, ui.color.g, ui.color.b, ui.color.a )
+        love.graphics.setColor( s.color )
     end
 
-    love.graphics.rectangle("line", x, y, w, h )
+    love.graphics.rectangle("line", s.x, s.y, s.w, s.h )
 
     -- draw checked rectangle
     if( ui.elements[name].checked ) then
-        love.graphics.setColor( ui.color.r, ui.color.g, ui.color.b, ui.color.a )
-        love.graphics.rectangle("fill", x + 5, y + 5, w - 10, h - 10 )
+        love.graphics.setColor( s.color )
+        love.graphics.rectangle("fill", s.x + 5, s.y + 5, s.w - 10, s.h - 10 )
     end
 
 

@@ -3,6 +3,30 @@ love.graphics.setDefaultFilter( "nearest", "nearest" )
 
 jupiter = require "jupiter"
 
+-- the names of the Love2D callbacks so we can override them easier
+lovecallbacks = {
+    "load",
+    "update",
+    "draw",
+
+    "mousepressed",
+    "mousereleased",
+    "mousemoved",
+    "wheelmoved",
+    "keypressed",
+    "keyreleased",
+    "textinput",
+    "textedited",
+    "touchmoved",
+    "touchpressed",
+    "touchreleased",
+
+    "resize",
+    "focus",
+    "quit",
+    "filedropped",
+}
+
 -- #includes lmao
 require "camera"
 require "tank"
@@ -17,6 +41,8 @@ require "state/menu"
 require "state/pause"
 require "state/settings"
 require "state/settings2"
+
+local event = require "event"
 
 local bump = require "lib/bump"
 collisionWorld = bump.newWorld( 64 )
@@ -60,35 +86,13 @@ function loadState( newState, arg )
     print( state )
 end
 
--- the names of the Love2D callbacks so we can override them easier
-lovecallbacks = {
-    "load",
-    "update",
-    "draw",
 
-    "mousepressed",
-    "mousereleased",
-    "mousemoved",
-    "wheelmoved",
-    "keypressed",
-    "keyreleased",
-    "textinput",
-    "textedited",
-    "touchmoved",
-    "touchpressed",
-    "touchreleased",
-
-    "resize",
-    "focus",
-    "quit",
-    "filedropped",
-}
 
 -- set up callbacks
 for _, callback in pairs( lovecallbacks ) do
     love[callback] = function( arg1, arg2, arg3, arg4, arg5, arg6 )
         if( state[callback] ) then state[callback]( arg1, arg2, arg3, arg4, arg5, arg6 ) end
-        if( ui[callback] ) then ui[callback]( arg1, arg2, arg3, arg4, arg5, arg6 ) end
+        event.callback( callback, arg1, arg2, arg3, arg4, arg5, arg6 )
     end
 end
 
@@ -138,7 +142,8 @@ end
 
 function love.draw()
     if( state.draw ) then state.draw() end
-    ui.update()
+    ui.reset()
+    event.reset()
 
     -- display FPS (  it is in top left corner )
     love.graphics.setColor( 228, 241, 254 )
@@ -148,6 +153,7 @@ end
 
 -- event Updates
 function love.wheelmoved( x, y )
+    event.callback( "wheelmoved", x, y )
     -- zooming the camera with mousewheel
 	if( camera.scale + y / 10 > 0 ) then
 		camera.scale = camera.scale + y / 10
@@ -156,6 +162,7 @@ end
 
 function love.resize(w, h)
     if( state.resize ) then state.resize( w, h ) end
+    event.callback( "resize", w, h )
     -- change font size
     local fthing =  h  * 1 / 1600
     smallFont = love.graphics.newFont( "files/font.ttf", smallFontScale * fthing  )

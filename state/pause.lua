@@ -18,7 +18,7 @@ local function pauseDrawPause()
     local h = bigFont:getHeight() * 2
     local sy = love.graphics.getHeight() / 6
     local sx = love.graphics.getWidth() / 2 - w / 2
-    local continueButton = ui.button( "cntb", sx, sy, w, h, "continue", bigFont )
+    local continueButton = ui.button( { name = "cntb", x = sx, y = sy, w = w, h = h, text = "continue", font = bigFont } )
     if( continueButton.released[1] > 0 ) then
         ui.clear()
         state = gameState
@@ -28,7 +28,7 @@ local function pauseDrawPause()
     local w = love.graphics.getWidth() / 3
     --
     local sx = love.graphics.getWidth() / 2 - w / 2
-    local settingsButton = ui.button( "stsbt", sx, sy, w, h, "settings", bigFont )
+    local settingsButton = ui.button( { name = "stsbt", x = sx, y = sy, w = w, h = h, text = "settings", font = bigFont } )
     if( settingsButton.released[1] > 0 ) then
         ui.clear()
         state = settings2State
@@ -36,7 +36,7 @@ local function pauseDrawPause()
     -- back to menu
     local h = bigFont:getHeight()
     local sy = love.graphics.getHeight() - h - 10
-    local menuButton = ui.button( "mnubt", sx, sy, w, h, "back to menu", bigFont )
+    local menuButton = ui.button( { name = "mnubt", x = sx, y = sy, w = w, h = h, text = "back to menu", font = bigFont } )
     if( menuButton.released[1] > 0 ) then
         ui.clear()
         state = menuState
