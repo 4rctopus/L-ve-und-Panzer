@@ -2,7 +2,7 @@ local lume = require "lib/lume"
 local event = require "event"
 
 ui.checkBoxSettings = {
-    name = "noname", x = 0, y = 0, w = 100, h = 100, checked = false,
+    name = "noname", x = 0, y = 0, w = 100, h = 100,
     hoverColor = { 37, 41, 49 },
     color = { 33, 37, 43 },
 }
@@ -25,7 +25,7 @@ function ui.checkBox( settings )
     if( ui.enableInput ) then
         for i, input in ipairs( event.mousereleased ) do
             if( pointInsideRectangle( input.x, input.y, s.x, s.y, s.w, s.h ) ) then
-                ui.elements[name].checked = not ui.elements[name].checked
+                ui.elements[s.name].checked = not ui.elements[s.name].checked
             end
         end
     end
@@ -39,15 +39,16 @@ function ui.checkBox( settings )
         love.graphics.setColor( s.color )
     end
 
+    love.graphics.setLineWidth( 3 )
     love.graphics.rectangle("line", s.x, s.y, s.w, s.h )
 
     -- draw checked rectangle
-    if( ui.elements[name].checked ) then
+    if( ui.elements[s.name].checked ) then
         love.graphics.setColor( s.color )
         love.graphics.rectangle("fill", s.x + 5, s.y + 5, s.w - 10, s.h - 10 )
     end
 
 
-    state.checked = ui.elements[name].checked
+    state.checked = ui.elements[s.name].checked
     return state
 end
