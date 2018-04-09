@@ -13,13 +13,11 @@ function gameState.update( dt )
         nextRoundTimer = 3
     elseif( nextRoundTimer ~= 0 ) then
         nextRoundTimer = nextRoundTimer - dt
-        if( nextRoundTimer < 0 ) then
+        if( nextRoundTimer < 0 ) then   
             -- increase score of winner ( if there is a winner )
             if( tanks[1] ) then
                 for i = 1, #players do
-                    print( players[i].name )
-                    print( tanks[1].name )
-                    if( players[i].name == tanks[1].name ) then
+                    if( players[i] == tanks[1].player ) then
                         players[i].score = players[i].score + 1
                     end
                 end
@@ -93,7 +91,7 @@ function gameState.draw()
     end
 
     -- draw colliders
-    -- drawColliders()
+    --drawColliders()
 
     -- reset camera to window, so we can draw UI
     love.graphics.origin()
