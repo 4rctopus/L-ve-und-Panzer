@@ -9,7 +9,7 @@ local function pauseDrawPause()
     love.graphics.origin()
 
     -- darkening thing over the game
-    love.graphics.setColor( 0, 0, 0, 150 )
+    setColorRGB( 0, 0, 0, 150 )
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight() )
 
 

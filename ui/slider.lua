@@ -70,14 +70,14 @@ function ui.slider( settings )
 
 
     -- draw line of slider
-    love.graphics.setColor( s.color  )
+    setColorRGB( s.color  )
     love.graphics.rectangle("fill", sx, sy, s.w, s.h )
 
 
 
-    love.graphics.setColor( s.grabColor )
+    setColorRGB( s.grabColor )
     if( element.grabbed ) then
-        love.graphics.setColor( s.grabColorDown )
+        setColorRGB( s.grabColorDown )
     end
     love.graphics.rectangle( "fill", grabsx, grabsy, grabWidth, grabHeight )
 

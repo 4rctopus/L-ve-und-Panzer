@@ -10,7 +10,7 @@ function menuState.draw()
     -- reset camera to window, so we can draw UI
     love.graphics.origin()
     love.graphics.setFont( veryBigFont )
-    love.graphics.setColor(255, 255, 255 )
+    setColorRGB(255, 255, 255 )
     love.graphics.printf( "Press SPACE to start!", 0, love.graphics.getHeight() / 3, love.graphics.getWidth(), "center" )
     --]]
     love.graphics.origin()

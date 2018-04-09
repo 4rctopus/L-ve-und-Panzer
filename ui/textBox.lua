@@ -121,19 +121,19 @@ function ui.textBox( settings )
         end
     end
     -- draw background rectangle
-    love.graphics.setColor( s.backgroundColor )
+    setColorRGB( s.backgroundColor )
     love.graphics.rectangle("fill", s.x, s.y, s.w, h )
 
     -- draw text
     love.graphics.setScissor( s.x + xPush, s.y, s.w - 2 * xPush, h )
     love.graphics.setFont( s.font )
-    love.graphics.setColor( 255, 255, 255, 255 )
+    setColorRGB( 255, 255, 255, 255 )
     love.graphics.print( element.text, textx + xPush, s.y )
 
     -- draw blinking thingy
     if( ui.enableInput ) then
     if( element.focused and ui.cursorBlinkTime > 0.5 ) then
-        love.graphics.setColor( s.cursorColor )
+        setColorRGB( s.cursorColor )
         local a, b = split( element.text, element.cursorPos )
         local cx = textx + xPush + s.font:getWidth( a )
         love.graphics.rectangle("fill", cx, s.y, 2, h )

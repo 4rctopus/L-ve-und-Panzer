@@ -27,6 +27,26 @@ lovecallbacks = {
     "filedropped",
 }
 
+
+function setColorRGB( ... )
+    local col = {}
+    if( type( select( 1, ... ) ) == "table" ) then
+        local arg = select( 1, ... )
+        for i = 1, 4 do
+            if( arg[i] ) then
+                col[i] = arg[i] / 255
+            end
+        end
+    else
+        for i = 1, 4 do
+            if( select( i, ... ) ) then
+                col[i] = select( i, ... ) / 255
+            end
+        end
+    end
+    love.graphics.setColor( col[1], col[2], col[3], col[4] )
+end
+
 -- #includes lmao
 require "camera"
 require "tank"
@@ -146,7 +166,7 @@ function love.draw()
     event.reset()
 
     -- display FPS (  it is in top left corner )
-    love.graphics.setColor( 228, 241, 254 )
+    setColorRGB( 228, 241, 254 )
     love.graphics.setFont( smallFont )
     love.graphics.print( love.timer.getFPS() )
 end

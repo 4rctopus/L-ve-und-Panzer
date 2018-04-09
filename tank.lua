@@ -130,7 +130,7 @@ end
 
 
 function drawTank( tank )
-    love.graphics.setColor( tank.player.color.red, tank.player.color.green, tank.player.color.blue )
+    setColorRGB( tank.player.color.red, tank.player.color.green, tank.player.color.blue )
     love.graphics.draw( tank.image, tank.x, tank.y, tank.rotation, tank.scale, tank.scale, tank.ox, tank.oy )
-    love.graphics.setColor( 255, 255, 255 )
+    setColorRGB( 255, 255, 255 )
 end

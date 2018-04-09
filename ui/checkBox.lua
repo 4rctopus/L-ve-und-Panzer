@@ -33,10 +33,10 @@ function ui.checkBox( settings )
     -- draw outline rectangle
     if( mouseOver( s.x, s.y, s.w, s.h ) ) then
         if( ui.enableInput ) then
-        love.graphics.setColor( s.hoverColor  )
+        setColorRGB( s.hoverColor  )
         end
     else
-        love.graphics.setColor( s.color )
+        setColorRGB( s.color )
     end
 
     love.graphics.setLineWidth( 3 )
@@ -44,7 +44,7 @@ function ui.checkBox( settings )
 
     -- draw checked rectangle
     if( ui.elements[s.name].checked ) then
-        love.graphics.setColor( s.color )
+        setColorRGB( s.color )
         love.graphics.rectangle("fill", s.x + 5, s.y + 5, s.w - 10, s.h - 10 )
     end
 

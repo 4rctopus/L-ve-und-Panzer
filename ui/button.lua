@@ -22,19 +22,19 @@ function ui.button( settings )
     -- check if mouse is hovering above button, and set color accordingly
     if( mouseOver( s.x,s.y,s.w,s.h ) and ui.enableInput ) then
         state.hover = true
-        love.graphics.setColor( s.hoverColor  )
+        setColorRGB( s.hoverColor  )
 
         -- check if mousebuttons are down
         for i = 1, 3 do
             if( love.mouse.isDown( i ) ) then
                 state.down[i] = true
                 -- change color if a mouseButton is pressed
-                love.graphics.setColor( s.downColor  )
+                setColorRGB( s.downColor  )
             end
         end
     else -- if not hovering
         state.hover = false
-        love.graphics.setColor( s.color )
+        setColorRGB( s.color )
     end
 
     -- calc things from events, eventinput
@@ -55,7 +55,7 @@ function ui.button( settings )
     love.graphics.rectangle("fill", s.x,s.y,s.w,s.h )
     -- s.text
     if( s.text ~= nil ) then
-        love.graphics.setColor( 255, 255, 255, 255 )
+        setColorRGB( 255, 255, 255, 255 )
         if( s.font ~= nil ) then love.graphics.setFont( s.font ) else
             s.font = love.graphics.getFont() end 
         if( s.align ) then love.graphics.printf( s.text, s.x,s.y + ( s.h - s.font:getHeight( s.text ) ) / 2,s.w, s.align ) end

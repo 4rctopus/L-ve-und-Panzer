@@ -44,11 +44,11 @@ function removeColl( collider )
 end
 
 function drawColliders( )
-    love.graphics.setColor( 0, 0, 255 )
+    setColorRGB( 0, 0, 255 )
     for i = 1, #colliders do
         love.graphics.rectangle("line", colliders[i].x, colliders[i].y, colliders[i].w, colliders[i].h )
     end
-    love.graphics.setColor( 255, 255, 255 )
+    setColorRGB( 255, 255, 255 )
 end
 
 function isColliding( coll1, coll2 )

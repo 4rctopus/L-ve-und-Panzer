@@ -14,9 +14,11 @@ function gameState.update( dt )
     elseif( nextRoundTimer ~= 0 ) then
         nextRoundTimer = nextRoundTimer - dt
         if( nextRoundTimer < 0 ) then
-            -- increase score of winner ( of there is a winner )
+            -- increase score of winner ( if there is a winner )
             if( tanks[1] ) then
                 for i = 1, #players do
+                    print( players[i].name )
+                    print( tanks[1].name )
                     if( players[i].name == tanks[1].name ) then
                         players[i].score = players[i].score + 1
                     end
@@ -57,16 +59,16 @@ end
 
 function gameState.draw()
     -- draw background color
-    love.graphics.setColor(108, 122, 137 )
-    --love.graphics.setColor( love.math.random( 255 ), love.math.random( 255 ), love.math.random( 255 ) )
+    setColorRGB(108, 122, 137 )
+    --setColorRGB( love.math.random( 255 ), love.math.random( 255 ), love.math.random( 255 ) )
     love.graphics.rectangle("fill", 0, 0, 2000, 2000 )
-    love.graphics.setColor( 255, 255, 255 )
+    setColorRGB( 255, 255, 255 )
 
     -- set world camera
     setCamera( camera )
 
-    --love.graphics.setColor( love.math.random( 255 ), love.math.random( 255 ), love.math.random( 255 ) )
-    love.graphics.setColor( 34, 49, 63 )
+    --setColorRGB( love.math.random( 255 ), love.math.random( 255 ), love.math.random( 255 ) )
+    setColorRGB( 34, 49, 63 )
     -- draw walls
     for i = 1, #walls do
         love.graphics.rectangle("fill", walls[i].x, walls[i].y, walls[i].w, walls[i].h )
@@ -96,7 +98,7 @@ function gameState.draw()
     -- reset camera to window, so we can draw UI
     love.graphics.origin()
     -- set oor to white for UI
-    love.graphics.setColor( 228, 241, 254 )
+    setColorRGB( 228, 241, 254 )
     -- display FPS (  it is in top left corner )
     love.graphics.setFont( smallFont )
     love.graphics.print( love.timer.getFPS() )
@@ -107,17 +109,17 @@ function gameState.draw()
 
     for i = 1, #players do
         newLines = newLines .. "\n"
-        love.graphics.setColor( players[i].color.red, players[i].color.green, players[i].color.blue )
+        setColorRGB( players[i].color.red, players[i].color.green, players[i].color.blue )
         love.graphics.print( newLines .. "  " .. players[i].name .. ": " .. players[i].score )
     end
 
     love.graphics.setFont( veryBigFont )
-    love.graphics.setColor( 228, 241, 254 )
+    setColorRGB( 228, 241, 254 )
     if( nextRoundTimer ~= 0 ) then
     	if( allAmmo == 0 and #bullets == 0 and #tanks > 1 ) then
     		love.graphics.printf( "You ran out of ammo!\n" .. math.floor( nextRoundTimer + 1 )  , 0, love.graphics.getHeight() / 4, love.graphics.getWidth(), "center" )
         elseif( tanks[1] ) then
-            love.graphics.setColor( 255, 255, 255  )
+            setColorRGB( 255, 255, 255  )
             local color = { 228, 241, 254  }
             local nameColor = { tanks[1].player.color.red, tanks[1].player.color.green, tanks[1].player.color.blue }
             local coloredtext = { nameColor, tanks[1].player.name, color, " won!\n" .. math.floor( nextRoundTimer + 1 ) }

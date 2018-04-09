@@ -41,7 +41,7 @@ function updateMuzzleFlash( flash, dt )
 end
 
 function drawMuzzleFlash( flash )
-    love.graphics.setColor(255, 255, 255 )
+    setColorRGB(255, 255, 255 )
     love.graphics.rectangle("fill", flash.x - flash.size / 2, flash.y - flash.size / 2, flash.size, flash.size )
 end
 

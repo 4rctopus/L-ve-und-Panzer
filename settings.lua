@@ -6,7 +6,7 @@ function settingsDraw( addremove )
     -- reset camera to window, so we can draw UI
     love.graphics.origin()
     love.graphics.setFont( bigFont )
-    love.graphics.setColor( 255, 255, 255 )
+    setColorRGB( 255, 255, 255 )
     love.graphics.printf( "s e t t i n g s", 0, 0, love.graphics.getWidth(), "center" )
 
     --love.graphics.rectangle("fill", 0, bigFont:getHeight(), love.graphics.getWidth(), 3)
@@ -27,7 +27,7 @@ function settingsDraw( addremove )
             selectedPlayer = i
         end
         if( i == selectedPlayer ) then
-            love.graphics.setColor( 9,8,8 )
+            setColorRGB( 9,8,8 )
             love.graphics.setLineWidth( 5 )
             love.graphics.rectangle("line", hp, sy, w, h )
             love.graphics.setLineWidth( 1 )
@@ -69,7 +69,7 @@ function settingsDraw( addremove )
     local playerTextBox = ui.textBox( { name = "pname" .. selectedPlayer, x = sx, y = sy, w = w, font = bigFont, text = players[selectedPlayer].name } )
     players[selectedPlayer].name = playerTextBox.text
 
-    love.graphics.setColor( 255, 255, 255, 255 )
+    setColorRGB( 255, 255, 255, 255 )
     love.graphics.setFont( bigFont )
     -- keybindings
     sy = sy + bigFont:getHeight(  ) + 3
@@ -92,14 +92,14 @@ function settingsDraw( addremove )
     for color, value in pairs( players[selectedPlayer].color ) do
         local slider = ui.slider( { name = "slider" .. color .. selectedPlayer, x = sx, y = sy, w = w, h = bigFont:getHeight(), value = players[selectedPlayer].color[color] / 255 } )
         players[selectedPlayer].color[color] =  slider.value * 255
-        love.graphics.setColor(255, 255, 255, 255 )
+        setColorRGB(255, 255, 255, 255 )
         love.graphics.printf( color .. ": " .. math.floor( players[selectedPlayer].color[color] ), sx, sy, w, "center" )
         sy = sy + bigFont:getHeight( ) + 3
     end
     -- color change end
 
     -- color viewer
-    love.graphics.setColor( players[selectedPlayer].color.red, players[selectedPlayer].color.green, players[selectedPlayer].color.blue )
+    setColorRGB( players[selectedPlayer].color.red, players[selectedPlayer].color.green, players[selectedPlayer].color.blue )
     love.graphics.rectangle( "fill", sx + w / 4, sy, w - 2 * ( w / 4 ), bigFont:getHeight() )
     sy = sy + bigFont:getHeight() + 10
 
@@ -119,16 +119,16 @@ function settingsDraw( addremove )
     -- other settings
     sx = love.graphics.getWidth() / 3 * 2 + sectionMinus
     sy = topy
-    love.graphics.setColor( 255, 255, 255, 255 )
+    setColorRGB( 255, 255, 255, 255 )
     love.graphics.setFont( bigFont )
     love.graphics.printf( "other settings", sx, sy, w, "center" )
 
     -- setting Keybind
     -- darkening thing over
     if( settingKeybind ~= nil ) then
-        love.graphics.setColor( 0, 0, 0, 150 )
+        setColorRGB( 0, 0, 0, 150 )
         love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight() )
-        love.graphics.setColor(255, 255, 255, 255)
+        setColorRGB(255, 255, 255, 255)
         love.graphics.printf( "set " .. players[selectedPlayer].name .. "'s " .. settingKeybind.key .. " keybind", 0, love.graphics.getHeight() / 2 - bigFont:getHeight() / 2, love.graphics.getWidth(), "center" )
     end
 end

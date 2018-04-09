@@ -56,8 +56,8 @@ end
 
 
 function drawBullet( bullet )
-    love.graphics.setColor( 0, 0, 0 )
+    setColorRGB( 0, 0, 0 )
     love.graphics.circle("fill", bullet.x, bullet.y, 2 )
-    love.graphics.setColor( 255, 255, 255 )
+    setColorRGB( 255, 255, 255 )
 
 end
