@@ -103,16 +103,6 @@ function gameState.draw()
     love.graphics.setFont( smallFont )
     love.graphics.print( love.timer.getFPS() )
 
-    love.graphics.setFont( bigFont )
-    local newLines = "\n"
-    love.graphics.print( newLines .. "    score  ")
-
-    for i = 1, #players do
-        newLines = newLines .. "\n"
-        setColorRGB( players[i].color.red, players[i].color.green, players[i].color.blue )
-        love.graphics.print( newLines .. "  " .. players[i].name .. ": " .. players[i].score )
-    end
-
     love.graphics.setFont( veryBigFont )
     setColorRGB( 228, 241, 254 )
     if( nextRoundTimer ~= 0 ) then
@@ -123,9 +113,13 @@ function gameState.draw()
             local color = { 228, 241, 254  }
             local nameColor = { tanks[1].player.color.red / 255, tanks[1].player.color.green / 255, tanks[1].player.color.blue / 255 }
             local coloredtext = { nameColor, tanks[1].player.name, color, " won!\n" .. math.floor( nextRoundTimer + 1 ) }
-            love.graphics.printf( coloredtext, 0, love.graphics.getHeight() / 4, love.graphics.getWidth(), "center" )
+            if( nextRoundTimer > 0 ) then
+                love.graphics.printf( coloredtext, 0, love.graphics.getHeight() / 4, love.graphics.getWidth(), "center" )
+            end
         else
-            love.graphics.printf( "Everyone is dieded!\n" .. math.floor( nextRoundTimer + 1 )  , 0, love.graphics.getHeight() / 4, love.graphics.getWidth(), "center" )
+            if( nextRoundTimer > 0 ) then
+                love.graphics.printf( "Everyone is dieded!\n" .. math.floor( nextRoundTimer + 1 )  , 0, love.graphics.getHeight() / 4, love.graphics.getWidth(), "center" )
+            end
         end
     end
 end
