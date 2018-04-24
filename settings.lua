@@ -57,6 +57,11 @@ function settingsDraw( addremove )
                 players[#players].color.green = defaultPlayers[#players][8]
                 players[#players].color.blue = defaultPlayers[#players][9]
                 players[#players].score = 0
+
+                players[#players].stats = {}
+                for j, name in ipairs( statNames ) do
+                    players[#players].stats[name] = 1
+                end
             end
         end
     end
@@ -115,7 +120,7 @@ function settingsDraw( addremove )
     end
 
 
-
+    
     -- other settings
     sx = love.graphics.getWidth() / 3 * 2 + sectionMinus
     sy = topy

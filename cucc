@@ -1,20 +1,19 @@
 Entityk tárolása:
-    hagyjuk igy
-    egy vektor
-    fa
+    hagyjuk igy +
 
 Collision:
     bump
     HC
-    saját AABB + rotation
 
 Két játék közti menu
 
 Pályagenerálás
 
-Effects
+Pontosztás
 
 Documentation
+
+Effects
 
 Extra:
     Powerupok

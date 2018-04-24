@@ -56,11 +56,7 @@ require "mapgen"
 
 require "ui/ui"
 
-require "state/game"
-require "state/menu"
-require "state/pause"
-require "state/settings"
-require "state/settings2"
+require.tree( "state" )
 
 local event = require "event"
 

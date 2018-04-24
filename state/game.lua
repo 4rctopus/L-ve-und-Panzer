@@ -2,6 +2,7 @@ local create = require "create"
 
 gameState = {}
 
+
 function gameState.update( dt )
     -- new round if there is only one tank left
     allAmmo = 0
@@ -24,8 +25,7 @@ function gameState.update( dt )
                     end
                 end
             end
-            newMap()
-            nextRoundTimer = 0
+            loadState( betweenState )
         end
     end
 
