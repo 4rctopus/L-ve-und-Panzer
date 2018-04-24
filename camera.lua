@@ -13,6 +13,9 @@ function newCamera()
     camera.shakeRadius = 0
     camera.shakeSpeed = 0
 
+    camera.update = updateCamera
+    camera.set = setCamera
+
     return camera
 end
 

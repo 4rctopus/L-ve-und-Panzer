@@ -1,3 +1,5 @@
+local create = require "create"
+
 gameState = {}
 
 function gameState.update( dt )
@@ -29,15 +31,15 @@ function gameState.update( dt )
 
     -- update tanks
     for i = 1, #tanks do
-        updateTank( tanks[i], dt )
+        tanks[i]:update( dt )
     end
     -- update bullets
     for i = 1, #bullets do
         if( bullets[i] ) then
-            updateBullet( bullets[i], dt )
+            bullets[i]:update( dt )
             -- delete bullets
             if( bullets[i] and bullets[i].time > bullets[i].lifeTime ) then
-                newMuzzleFlash( bullets[i].x, bullets[i].y, 1, 0.1, 50 )
+                create.muzzleFlash( bullets[i].x, bullets[i].y, 1, 0.1, 50 )
                 removeColl( bullets[i].collider )
                 table.remove( bullets, i )
             end
@@ -47,12 +49,12 @@ function gameState.update( dt )
     for i = 1, #effects do
         if( effects[i] ) then
             if( effects[i].update ) then
-                effects[i].update( effects[i], dt )
+                effects[i]:update( dt )
             end
         end
     end
 
-    updateCamera( camera, dt )
+    camera:update(dt)
 end
 
 function gameState.draw()
@@ -63,7 +65,7 @@ function gameState.draw()
     setColorRGB( 255, 255, 255 )
 
     -- set world camera
-    setCamera( camera )
+    camera:set()
 
     --setColorRGB( love.math.random( 255 ), love.math.random( 255 ), love.math.random( 255 ) )
     setColorRGB( 34, 49, 63 )
@@ -75,18 +77,18 @@ function gameState.draw()
 
     -- draw tanks
     for i = 1, #tanks do
-        drawTank( tanks[i] )
+        tanks[i]:draw()
     end
 
     -- draw bullets
     for i = 1, #bullets do
-        drawBullet( bullets[i] )
+        bullets[i]:draw()
     end
 
     -- draw effects
     for i = 1, #effects do
         if( effects[i].draw ) then
-            effects[i].draw( effects[i] )
+            effects[i]:draw()
         end
     end
 
@@ -119,7 +121,7 @@ function gameState.draw()
         elseif( tanks[1] ) then
             setColorRGB( 255, 255, 255  )
             local color = { 228, 241, 254  }
-            local nameColor = { tanks[1].player.color.red, tanks[1].player.color.green, tanks[1].player.color.blue }
+            local nameColor = { tanks[1].player.color.red / 255, tanks[1].player.color.green / 255, tanks[1].player.color.blue / 255 }
             local coloredtext = { nameColor, tanks[1].player.name, color, " won!\n" .. math.floor( nextRoundTimer + 1 ) }
             love.graphics.printf( coloredtext, 0, love.graphics.getHeight() / 4, love.graphics.getWidth(), "center" )
         else
@@ -133,7 +135,7 @@ end
 function gameState.keypressed( key, scancode, isrepeat )
     for i = 1, #tanks do
         if( tanks[i] ) then
-            keypressedInputTank( tanks[i], key )
+            tanks[i]:keypressed( key )
         end
     end
 

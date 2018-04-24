@@ -1,4 +1,5 @@
 
+local create = require "create"
 
 function newWall( x, y, w, h )
     walls[#walls + 1] = newColl( "wall", x, y, w, h )
@@ -14,7 +15,7 @@ function lineToRect( x1, y1, x2, y2, size )
         return x, y, w, h
     else
         local x = math.min( x1, x2 )
-        local y = y1
+        local y = y1a
         local w = math.max( x1, x2 ) - x + size
         local h = size
 
@@ -66,7 +67,7 @@ function newMap()
 
     -- make the tanks from the player table
     for i = 1, #players do
-        tanks[i] = newTank( 0, 0, players[i] )
+        tanks[i] = create.tank( 0, 0, players[i] )
     end
 
     -- put the players somewhere nice

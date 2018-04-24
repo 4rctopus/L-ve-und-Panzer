@@ -2,6 +2,8 @@
 love.graphics.setDefaultFilter( "nearest", "nearest" )
 
 jupiter = require "jupiter"
+require "lib/require"
+require.tree("entity")
 
 -- the names of the Love2D callbacks so we can override them easier
 lovecallbacks = {
@@ -49,9 +51,7 @@ end
 
 -- #includes lmao
 require "camera"
-require "tank"
 require "keybindings"
-require "effect"
 require "mapgen"
 
 require "ui/ui"
@@ -74,6 +74,8 @@ defaultPlayers[3] = { "Hana", "kp8", "kp4", "kp6", "kp5", "kp9", 142, 68, 173  }
 defaultPlayers[4] = { "Yukari", "i", "j", "l", "k", "u", 52, 73, 94  }
 defaultPlayers[5] = { "Mako", "t", "f", "h", "g", "r", 236, 240, 241  }
 
+statNames = { "speed", "ammo", "bulletSpeed", "radianSpeed" }
+
 function loadDefaultPlayers()
     for i = 1, 5 do
         players[i] = {}
@@ -89,6 +91,11 @@ function loadDefaultPlayers()
         players[i].color.green = defaultPlayers[i][8]
         players[i].color.blue = defaultPlayers[i][9]
         players[i].score = 0
+
+        players[i].stats = {}
+        for j, name in ipairs( statNames ) do
+            players[i].stats[name] = 1
+        end
     end
 end
 
