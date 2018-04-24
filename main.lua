@@ -92,6 +92,7 @@ function loadDefaultPlayers()
         for j, name in ipairs( statNames ) do
             players[i].stats[name] = 1
         end
+        players[i].budget = 10
     end
 end
 

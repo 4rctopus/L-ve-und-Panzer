@@ -36,7 +36,7 @@ function newMap()
     local maxMapSize = 200
     local minWallCount = 20
     local maxWallCount = 40
-    local minWallSize = 1
+    local minWallSize = 10
     local maxWallSize = 100
 
 

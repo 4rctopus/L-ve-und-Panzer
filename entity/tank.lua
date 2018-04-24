@@ -7,24 +7,30 @@ local tank = {}
 
 tankImage = love.graphics.newImage("files/tank3.png")
 
+
 tankSpeed = 100
 tankBackSpeed = 50
 bulletSpeed = 150
 tankStartAmmo = 6
 radianSpeed = 4
+maxStatScore = 5
+
 
 -- this will be holding the tanks
 tanks = {}
 
+local function getStatsFromPlayer( this )
+    this.speed = tankSpeed + this.player.stats.speed * tankSpeed / 10
+    this.ammo = tankStartAmmo + this.player.stats.ammo
+    this.bulletSpeed = bulletSpeed + this.player.stats.bulletSpeed * bulletSpeed / 10
+    this.radianSpeed = radianSpeed + this.player.stats.radianSpeed * radianSpeed / 25
+end
 
 function create.tank( posx, posy, player )
     local this = {}
     this.what = "tank"
     this.player = player
-    this.speed = tankSpeed + player.stats.speed * tankSpeed / 10
-    this.ammo = tankStartAmmo + player.stats.ammo
-    this.bulletSpeed = bulletSpeed + player.stats.bulletSpeed * bulletSpeed / 10
-    this.radianSpeed = radianSpeed + player.stats.radianSpeed * radianSpeed / 25
+    getStatsFromPlayer( this )
 
     --pos
     this.x = posx
@@ -40,13 +46,9 @@ function create.tank( posx, posy, player )
     this.velocity = {}
     this.velocity.x = 0
     this.velocity.y = 0
-    this.speed = 100
 
     this.collider = newColl( this, this.x - 7, this.y - 7, 15, 14 )
 
-    this.ammo = tankStartAmmo
-
-    this.keybind = defaultKeybind
 
     this.draw = function( this )
         setColorRGB( this.player.color.red, this.player.color.green, this.player.color.blue )
@@ -55,6 +57,7 @@ function create.tank( posx, posy, player )
     end
 
     this.update = function( this, dt )
+        --getStatsFromPlayer( this )
         this:input( dt )
         -- movement
         local movement = {}
@@ -82,7 +85,7 @@ function create.tank( posx, posy, player )
         end
     
         if( love.keyboard.isDown( this.player.keybind.shoot ) ) then
-    
+            -- continous shooting here
         end
     
         this.velocity.x = movement.x * this.speed
@@ -91,8 +94,8 @@ function create.tank( posx, posy, player )
             -- same thing but backwards
             movement.y = movement.y - math.sin( this.rotation )
             movement.x = movement.x - math.cos( this.rotation )
-            this.velocity.x = movement.x * tankBackSpeed
-            this.velocity.y = movement.y * tankBackSpeed
+            this.velocity.x = movement.x * this.speed / 2
+            this.velocity.y = movement.y * this.speed / 2
         end
     end
 

@@ -1,3 +1,4 @@
+local lume = require "lib/lume"
 
 local selectedPlayer = 1
 settingKeybind = nil
@@ -62,6 +63,7 @@ function settingsDraw( addremove )
                 for j, name in ipairs( statNames ) do
                     players[#players].stats[name] = 1
                 end
+                players[#players].budget = 10
             end
         end
     end
@@ -120,13 +122,52 @@ function settingsDraw( addremove )
     end
 
 
-    
+    local selectedPlayer = players[selectedPlayer]
+
     -- other settings
     sx = love.graphics.getWidth() / 3 * 2 + sectionMinus
     sy = topy
-    setColorRGB( 255, 255, 255, 255 )
+
+    love.graphics.setColor( 1, 1, 1 )
+    --[[
     love.graphics.setFont( bigFont )
     love.graphics.printf( "other settings", sx, sy, w, "center" )
+    ]]
+
+    for i, statName in ipairs( statNames ) do
+        love.graphics.printf( statName, sx, sy, w, "center" )
+
+        sy = sy + bigFont:getHeight() + 10
+
+        love.graphics.printf(selectedPlayer.stats[statName], sx, sy, w, "center" )
+
+        cfg = { x = sx, y = sy, h = bigFont:getHeight(), w = bigFont:getHeight(), font = bigFont }
+        local minButton = ui.button( lume.merge( cfg, { name = statName .. "-", text = "-" } ) )
+
+        if( minButton.pressed[1] > 0 ) then
+            if( selectedPlayer.stats[statName] > 0 ) then
+                selectedPlayer.stats[statName] = selectedPlayer.stats[statName] - 1
+                selectedPlayer.budget = selectedPlayer.budget + 1
+            end
+        end
+
+        local addButton = ui.button( lume.merge( cfg, { name = statName .. "+", text = "+", x = sx + w - cfg.w } ) )
+
+        if( addButton.pressed[1] > 0 ) then
+            if( selectedPlayer.budget > 0 and selectedPlayer.stats[statName] + 1 <= maxStatScore ) then
+                selectedPlayer.stats[statName] = selectedPlayer.stats[statName] + 1
+                selectedPlayer.budget = selectedPlayer.budget - 1
+            end
+        end
+
+        sy = sy + bigFont:getHeight() + 10
+    end
+    love.graphics.printf( "budget: " .. selectedPlayer.budget, sx, sy, w, "center" )
+
+    local button = ui.button( {name = "gsb", x = sx, y = love.graphics.getHeight() - hp - cfg.h - 5, h = cfg.h + 5, w = w, text = "global settings", font = bigFont } )
+    if( button.pressed[1] > 0 ) then
+        loadState( gSettingsState, state )
+    end
 
     -- setting Keybind
     -- darkening thing over
@@ -134,6 +175,6 @@ function settingsDraw( addremove )
         setColorRGB( 0, 0, 0, 150 )
         love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight() )
         setColorRGB(255, 255, 255, 255)
-        love.graphics.printf( "set " .. players[selectedPlayer].name .. "'s " .. settingKeybind.key .. " keybind", 0, love.graphics.getHeight() / 2 - bigFont:getHeight() / 2, love.graphics.getWidth(), "center" )
+        love.graphics.printf( "set " .. selectedPlayer.name .. "'s " .. settingKeybind.key .. " keybind", 0, love.graphics.getHeight() / 2 - bigFont:getHeight() / 2, love.graphics.getWidth(), "center" )
     end
 end
