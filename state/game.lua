@@ -3,6 +3,28 @@ local create = require "create"
 gameState = {}
 
 
+globalStatOrder = { "tankSpeed", "bulletSpeed", "tankStartAmmo", "radianSpeed", "maxStatScore", "budget", "scoreMax" }
+
+globalStats = {
+    tankSpeed = 100,
+    bulletSpeed = 150,
+    tankStartAmmo = 6,
+    radianSpeed = 4,
+    maxStatScore = 5,
+    budget = 10,
+    scoreMax = 5,
+    }
+    
+    globalStatLimits = {
+        tankSpeed = { min = 50, max = 200 },
+        bulletSpeed = { min = 100, max = 500 },
+        tankStartAmmo = { min = 1, max = 100 },
+        radianSpeed = { min = 2, max = 10 },
+        maxStatScore = { min = 0, max = 20 },
+        budget = { min = 0, max = 100 },
+        scoreMax = { min = 1, max = 10 },
+    }
+
 function gameState.update( dt )
     -- new round if there is only one tank left
     allAmmo = 0
@@ -134,7 +156,7 @@ function gameState.keypressed( key, scancode, isrepeat )
     end
 
     if( key == "escape" ) then
-        state = pauseState
+        loadState( pauseState )
     end
 
     if( key  == "x" ) then

@@ -34,32 +34,19 @@ function gSettingsState.draw()
     sy = sy + p * 3
     sx = p
 
-    local globalStatOrder = { "tankSpeed", "bulletSpeed", "tankStartAmmo", "radianSpeed", "maxStatScore", "budget" }
+    
 
     for i, statName in ipairs( globalStatOrder ) do
         local limit = globalStatLimits[statName]
 
         local normalized = ( globalStats[statName] - limit.min ) / ( limit.max - limit.min )
-        local slider = ui.slider( { name = statName .. "s", x = sx + p, y = sy, h = h, w = w - 2 * p,  value = normalized } )
+        local slider = ui.slider( { name = statName .. "s", x = sx + p, y = sy, h = h * 1.1, w = w - 2 * p,  value = normalized } )
         globalStats[statName] = limit.min + ( limit.max - limit.min ) * slider.value
         love.graphics.setColor( 1, 1, 1 )
         love.graphics.printf( math.floor( globalStats[statName] ), sx, sy, w, "center" )   
 
         love.graphics.printf( statName, sx + p * 2, sy, w )
         
-        sy = sy + bigFont:getHeight() + p
+        sy = sy + bigFont:getHeight() * 1.25
     end
-    
-
-    --[[
-    -- speed
-    love.graphics.printf( "speed", sx + p, sy, w )
-    sy = sy + bigFont:getHeight() + p
-    local slider = ui.slider( { name = "speeds", x = sx + p, y = sy, h = h, w = w - 2 * p, noChangeValue = true } )
-    globalStats.tankSpeed = 50 + slider.value * 200
-    love.graphics.setColor( 1, 1, 1 )
-    love.graphics.printf( math.floor( globalStats.tankSpeed ), sx, sy, w, "center" )
-    ]]
-    
-
 end

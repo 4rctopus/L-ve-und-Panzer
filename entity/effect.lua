@@ -1,6 +1,5 @@
 local create = require "create"
 
-effects = {}
 
 brokenImage = love.graphics.newImage("files/broken.png")
 

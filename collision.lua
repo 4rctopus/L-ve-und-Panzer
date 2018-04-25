@@ -8,8 +8,6 @@ collTable["bullet"]["wall"] = true
 collTable["bullet"]["tank"] = true
 collTable["bullet"]["bullet"] = false
 
--- collders
-colliders = {}
 
  function addColl( collider )
      colliders[#colliders + 1] = collider

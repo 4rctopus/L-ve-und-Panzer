@@ -168,7 +168,7 @@ function settingsDraw( addremove )
 
         sy = sy + bigFont:getHeight() + 10
     end
-    love.graphics.printf( "budget: " .. budget, sx, sy, w, "center" )
+    love.graphics.printf( "budget: " .. math.floor( budget ), sx, sy, w, "center" )
 
     local button = ui.button( {name = "gsb", x = sx, y = love.graphics.getHeight() - hp - cfg.h - 5, h = cfg.h + 5, w = w, text = "global settings", font = bigFont } )
     if( button.pressed[1] > 0 ) then

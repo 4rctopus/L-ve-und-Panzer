@@ -8,28 +8,6 @@ local tank = {}
 tankImage = love.graphics.newImage("files/tank3.png")
 
 
-globalStats = {
-tankSpeed = 100,
-bulletSpeed = 150,
-tankStartAmmo = 6,
-radianSpeed = 4,
-maxStatScore = 5,
-budget = 10,
-}
-
-globalStatLimits = {
-    tankSpeed = { min = 50, max = 200 },
-    bulletSpeed = { min = 100, max = 500 },
-    tankStartAmmo = { min = 1, max = 100 },
-    radianSpeed = { min = 2, max = 10 },
-    maxStatScore = { min = 0, max = 20 },
-    budget = { min = 0, max = 100 },
-}
-
-
--- this will be holding the tanks
-tanks = {}
-
 local function getStatsFromPlayer( this )
     this.speed = globalStats.tankSpeed + this.player.stats.speed * globalStats.tankSpeed / 10
     this.ammo = globalStats.tankStartAmmo + this.player.stats.ammo

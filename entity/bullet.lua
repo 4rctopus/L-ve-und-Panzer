@@ -1,7 +1,5 @@
 local create = require "create"
 
-bullets = {}
-
 function create.bullet( x, y, rot, speed )
     local this = {}
     this.what = "bullet"
