@@ -138,8 +138,6 @@ function love.load()
     bigFont = love.graphics.newFont( "files/font.ttf", bigFontScale * fthing )
     veryBigFont = love.graphics.newFont( "files/font.ttf", veryBigFontScale * fthing )
 
-
-
     ui.init()
 
     -- load players
@@ -161,6 +159,7 @@ function love.update(dt)
     lovebird.update()
     tween.update( dt )
     lurker.update() ]]
+    require("lib/lurker").update()
     if( state.update ) then state.update( dt ) end
 end
 
@@ -193,11 +192,3 @@ function love.resize(w, h)
     bigFont = love.graphics.newFont( "files/font.ttf", bigFontScale * fthing )
     veryBigFont = love.graphics.newFont( "files/font.ttf", veryBigFontScale * fthing )
 end
-
-
---[[
-Stuff I could do:
-powerups
-screen shake
-tire tracks
-]]

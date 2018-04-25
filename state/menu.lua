@@ -13,11 +13,23 @@ function menuState.draw()
     setColorRGB(255, 255, 255 )
     love.graphics.printf( "Press SPACE to start!", 0, love.graphics.getHeight() / 3, love.graphics.getWidth(), "center" )
     --]]
+
+    
+
     love.graphics.origin()
     local h = bigFont:getHeight() + love.graphics.getHeight() / 8
     local w = 3 * h
-    local sy = love.graphics.getHeight() / 4
-    local sx = love.graphics.getWidth() / 2 - w / 2
+    local sy = love.graphics.getHeight() / 16
+    local sx = love.graphics.getWidth() / 16
+
+
+    -- game name
+    love.graphics.setFont( veryBigFont )
+    love.graphics.print( "Tanks and Löve", sx, sy )
+
+
+    -- start game button
+    sy = sy + love.graphics.getHeight() / 12 + veryBigFont:getHeight()
     local startButton = ui.button( { name = "sb", x =sx, y = sy, w = w, h = h, text = "Start game", font =bigFont } )
     if( startButton.released[1] > 0 ) then
         ui.clear()
@@ -25,12 +37,20 @@ function menuState.draw()
         newMap()
         state = gameState
     end
-    sy = sy + h + love.graphics.getHeight() / 8
+
+    
+
+    -- settings button
+    sy = sy + h + love.graphics.getHeight() / 12
     local settingsButton = ui.button( { name = "cb", x = sx, y = sy, w = w, h = h, text = "Settings", font = bigFont } )
     if( settingsButton.released[1] > 0 ) then
         ui.clear()
         state = settingsState
     end
+
+    
+
+    
 
     --settingsDraw()
 end
