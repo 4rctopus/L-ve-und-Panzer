@@ -17,17 +17,21 @@ end
 function betweenState.update( dt )
     time = time - dt
 
-    if( time < 0 ) then
+    if( time < 0 and playersCpy[1].score < scoreMax ) then
         newMap()
-            nextRoundTimer = 0
-            loadState( gameState )
+        nextRoundTimer = 0
+        loadState( gameState )
+    elseif( time < 0 and playersCpy[1].score >= scoreMax ) then
+        newMap()
+        nextRoundTimer = 0
+        loadState( winnerState, playersCpy[1] )
     end
 end
 
 function betweenState.draw()
     gameState.draw()
 
-    scoreMax = 10;
+    scoreMax = 1;
 
     -- darkening thing over the game
     setColorRGB( 0, 0, 0, 180 )

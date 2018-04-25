@@ -60,7 +60,28 @@ function newMap()
     -- generating the maze
     local wallCount = love.math.random( minWallCount, maxWallCount )
     for i = 1, wallCount do
-        newWall( love.math.random( left, right ), love.math.random( top, down ), love.math.random( minWallSize, maxWallSize ), love.math.random(minWallSize, maxWallSize ) )
+        local ok = false
+        while( not ok ) do
+            local new = {}
+            new.x = love.math.random( left, right )
+            new.y =  love.math.random( top, down )
+            new.w = love.math.random( minWallSize, maxWallSize )
+            new.h = love.math.random(minWallSize, maxWallSize )
+            ok = true
+            
+            for j, wall in ipairs( walls ) do
+                if( wall.x and isColliding( wall, new ) ) then
+                    ok = false
+                    break
+                end
+            end
+
+            if( ok )then
+                
+                newWall( new.x, new.y, new.w, new.h )
+            end
+        end
+        --newWall( love.math.random( left, right ), love.math.random( top, down ), love.math.random( minWallSize, maxWallSize ), love.math.random(minWallSize, maxWallSize ) )
     end
 
 

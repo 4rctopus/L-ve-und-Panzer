@@ -134,12 +134,6 @@ function settingsDraw( addremove )
     love.graphics.printf( "other settings", sx, sy, w, "center" )
     ]]
 
-    local budget = globalStats.budget
-    for i, statName in ipairs( statNames ) do
-        budget = budget - selectedPlayer.stats[statName]
-    end
-
-
     for i, statName in ipairs( statNames ) do
         love.graphics.printf( statName, sx, sy, w, "center" )
 
@@ -153,22 +147,22 @@ function settingsDraw( addremove )
         if( minButton.pressed[1] > 0 ) then
             if( selectedPlayer.stats[statName] > 0 ) then
                 selectedPlayer.stats[statName] = selectedPlayer.stats[statName] - 1
-                budget = budget + 1
+                selectedPlayer.budget = selectedPlayer.budget + 1
             end
         end
 
         local addButton = ui.button( lume.merge( cfg, { name = statName .. "+", text = "+", x = sx + w - cfg.w } ) )
 
         if( addButton.pressed[1] > 0 ) then
-            if( budget > 0 and selectedPlayer.stats[statName] + 1 <= globalStats.maxStatScore ) then
+            if( selectedPlayer.budget > 0 and selectedPlayer.stats[statName] + 1 <= maxStatScore ) then
                 selectedPlayer.stats[statName] = selectedPlayer.stats[statName] + 1
-                budget = budget - 1
+                selectedPlayer.budget = selectedPlayer.budget - 1
             end
         end
 
         sy = sy + bigFont:getHeight() + 10
     end
-    love.graphics.printf( "budget: " .. budget, sx, sy, w, "center" )
+    love.graphics.printf( "budget: " .. selectedPlayer.budget, sx, sy, w, "center" )
 
     local button = ui.button( {name = "gsb", x = sx, y = love.graphics.getHeight() - hp - cfg.h - 5, h = cfg.h + 5, w = w, text = "global settings", font = bigFont } )
     if( button.pressed[1] > 0 ) then
