@@ -170,11 +170,6 @@ function settingsDraw( addremove )
     end
     love.graphics.printf( "budget: " .. math.floor( budget ), sx, sy, w, "center" )
 
-    local button = ui.button( {name = "gsb", x = sx, y = love.graphics.getHeight() - hp - cfg.h - 5, h = cfg.h + 5, w = w, text = "global settings", font = bigFont } )
-    if( button.pressed[1] > 0 ) then
-        loadState( gSettingsState, state )
-    end
-
     -- setting Keybind
     -- darkening thing over
     if( settingKeybind ~= nil ) then

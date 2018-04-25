@@ -5,17 +5,9 @@ menuState = {}
 function menuState.update( dt )
 end
 
+local showButtons = false
+
 function menuState.draw()
-    --[[
-    -- reset camera to window, so we can draw UI
-    love.graphics.origin()
-    love.graphics.setFont( veryBigFont )
-    setColorRGB(255, 255, 255 )
-    love.graphics.printf( "Press SPACE to start!", 0, love.graphics.getHeight() / 3, love.graphics.getWidth(), "center" )
-    --]]
-
-    
-
     love.graphics.origin()
     local h = bigFont:getHeight() + love.graphics.getHeight() / 8
     local w = 3 * h
@@ -25,7 +17,7 @@ function menuState.draw()
 
     -- game name
     love.graphics.setFont( veryBigFont )
-    love.graphics.print( "Tanks and Löve", sx, sy )
+    love.graphics.print( "Löve und Panzer", sx, sy )
 
 
     -- start game button
@@ -44,17 +36,26 @@ function menuState.draw()
     sy = sy + h + love.graphics.getHeight() / 12
     local settingsButton = ui.button( { name = "cb", x = sx, y = sy, w = w, h = h, text = "Settings", font = bigFont } )
     if( settingsButton.released[1] > 0 ) then
-        ui.clear()
-        state = settingsState
+        showButtons = not showButtons
     end
 
-    
+    -- buttons
+    if( showButtons ) then
+        sx = sx + w * 1.02
+        sy = sy - h / 2
+        --tank settings
+        local button = ui.button( { name = "tst", x = sx, y = sy, w = w, h = h, text = "tank settings", font = bigFont } )
+        if( button.pressed[1] > 0 ) then
+            ui.clear()
+            loadState( settingsState )
+        end
 
-    
-
-    --settingsDraw()
-end
-
-
-function menuState.keypressed( key, scancode, isrepeat )
+        sy = sy + h * 1.02
+        -- global settings
+        local button = ui.button( { name = "tstgb", x = sx, y = sy, w = w, h = h, text = "global settings", font = bigFont } )
+        if( button.pressed[1] > 0 ) then
+            ui.clear()
+            loadState( gSettingsState, state )
+        end
+    end
 end
