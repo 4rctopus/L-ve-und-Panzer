@@ -27,6 +27,7 @@ function settingsDraw( addremove )
         if( button.released[1] > 0 ) then
             selectedPlayer = i
         end
+        -- highlight selected player
         if( i == selectedPlayer ) then
             setColorRGB( 9,8,8 )
             love.graphics.setLineWidth( 5 )
@@ -136,7 +137,16 @@ function settingsDraw( addremove )
 
     local budget = globalStats.budget
     for i, statName in ipairs( statNames ) do
-        budget = budget - selectedPlayer.stats[statName]
+        if( selectedPlayer.stats[statName] > globalStats.maxStatScore ) then
+            budget = budget + selectedPlayer.stats[statName] - globalStats.maxStatScore
+            selectedPlayer.stats[statName] = globalStats.maxStatScore
+        end
+        if( budget - selectedPlayer.stats[statName] < 0 ) then
+            selectedPlayer.stats[statName] = selectedPlayer.stats[statName] - math.abs( budget - selectedPlayer.stats[statName] )
+            budget = 0
+        else
+            budget = budget - selectedPlayer.stats[statName]
+        end
     end
 
 
@@ -145,11 +155,12 @@ function settingsDraw( addremove )
 
         sy = sy + bigFont:getHeight() + 10
 
-        love.graphics.printf(selectedPlayer.stats[statName], sx, sy, w, "center" )
+        love.graphics.printf( math.floor( selectedPlayer.stats[statName] ), sx, sy, w, "center" )
 
         cfg = { x = sx, y = sy, h = bigFont:getHeight(), w = bigFont:getHeight(), font = bigFont }
+        
+        -- minus button
         local minButton = ui.button( lume.merge( cfg, { name = statName .. "-", text = "-" } ) )
-
         if( minButton.pressed[1] > 0 ) then
             if( selectedPlayer.stats[statName] > 0 ) then
                 selectedPlayer.stats[statName] = selectedPlayer.stats[statName] - 1
@@ -157,8 +168,8 @@ function settingsDraw( addremove )
             end
         end
 
+        -- plus buttton
         local addButton = ui.button( lume.merge( cfg, { name = statName .. "+", text = "+", x = sx + w - cfg.w } ) )
-
         if( addButton.pressed[1] > 0 ) then
             if( budget > 0 and selectedPlayer.stats[statName] + 1 <= globalStats.maxStatScore ) then
                 selectedPlayer.stats[statName] = selectedPlayer.stats[statName] + 1
