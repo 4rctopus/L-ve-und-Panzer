@@ -11,7 +11,7 @@ function betweenState.load()
 
     table.sort(playersCpy, function(a, b) return a.score > b.score end)
 
-    time = 4
+    time = 1.5
 end
 
 function betweenState.update( dt )

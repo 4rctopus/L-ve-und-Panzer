@@ -102,6 +102,7 @@ function newMap()
             mov, item = collide( tanks[i].collider, mov )
             tanks[i].x = tanks[i].x + mov.x
             tanks[i].y = tanks[i].y + mov.y
+			tanks[i].rotation = love.math.random()*math.pi*2
             if( item.what == "nothing" ) then
                 break
             end
