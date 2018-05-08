@@ -17,11 +17,11 @@ end
 function betweenState.update( dt )
     time = time - dt
 
-    if( time < 0 and playersCpy[1].score < globalStats.scoreMax ) then
+    if( time < 0 and playersCpy[1].score < math.floor( globalStats.scoreMax ) ) then
         newMap()
         nextRoundTimer = 0
         loadState( gameState )
-    elseif( time < 0 and playersCpy[1].score >= globalStats.scoreMax ) then
+    elseif( time < 0 and playersCpy[1].score >= math.floor( globalStats.scoreMax ) ) then
         newMap()
         nextRoundTimer = 0
         loadState( winnerState, playersCpy[1] )
@@ -52,7 +52,7 @@ function betweenState.draw()
     love.graphics.setFont( bigFont )
 
     for i = 1, #playersCpy do
-        local mathx = rw / globalStats.scoreMax * playersCpy[i].score
+        local mathx = rw / math.floor( globalStats.scoreMax ) * playersCpy[i].score
         setColorRGB( playersCpy[i].color.red, playersCpy[i].color.green, playersCpy[i].color.blue )
         love.graphics.rectangle( "fill", cx, cy, mathx, rh )
         setColorRGB( playersCpy[i].color.red, playersCpy[i].color.green, playersCpy[i].color.blue, 50 )
